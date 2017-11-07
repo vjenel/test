@@ -34,7 +34,7 @@ int main(int argc, char * argv[]){
     i_start = left*(N_local+1)+ (thread-left) * N_local;
    }
    i_end = i_start + N_local -1;
-   double *x = (double*)malloc(N_local*sizeof(double)); //malloc(0): gracefully handling the case N < N_threads for thread>=left
+   double *x = (double*)malloc(N_local*sizeof(double)); //malloc(0):  handling the case N < N_threads for thread>=left
    double *y = (double*)malloc(N_local*sizeof(double));
 
    read_file_distrib(nf, N, x, y, i_start, i_end,  N_threads ); // each cpu has a little chunck of data
