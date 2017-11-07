@@ -1,4 +1,4 @@
-// dot product ; distributed
+// dot product ; the data is distributed to threads
 #include <mpi.h>
 #include <stdio.h>
 #include <stdlib.h>
