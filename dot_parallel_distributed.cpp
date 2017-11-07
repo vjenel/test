@@ -1,9 +1,4 @@
-// read a file on master
-// send data on slave nodes
-
-// file structure 
-//N
-//x(i) y(i)
+// dot product ; distributed
 #include <mpi.h>
 #include <stdio.h>
 #include <stdlib.h>
