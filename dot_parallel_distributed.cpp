@@ -28,7 +28,7 @@ int main(int argc, char * argv[]){
    left = N % N_threads;
    if (thread < left) { //distribute the remianing elements uniformly
     N_local =  N/N_threads + 1 ; 
-    i_start = (thread) * N_local; // i_start is a pointer to the original big array
+    i_start = (thread) * N_local; // i_start : the global index of the arrays on this individual thread
    }else {
     N_local =  N/N_threads ;
     i_start = left*(N_local+1)+ (thread-left) * N_local;
@@ -64,7 +64,7 @@ void scan_file(const char *nf, int & N){
 }
 
 void read_file_distrib(const char *nf, int N, double * &x, double * &y, const int i_start, const int i_end,  int N_threads ){
-// the data is so large that wont fit in one cpu onll it will be spit amoung cpus
+// the data is large and it split amoung cpus
  int size_buff=2048;
  int i,i00,j,send_to,rank;
  double r2[2];
