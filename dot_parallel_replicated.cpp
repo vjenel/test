@@ -1,7 +1,4 @@
-// The read data is replicated amoung all CPUs
-// file structure 
-//N
-//x(i) y(i)
+// dot-product ; the  data is replicated on all threads
 #include <mpi.h>
 #include <stdio.h>
 #include <stdlib.h>
