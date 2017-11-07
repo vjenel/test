@@ -1,0 +1,15 @@
+testing dot_product parralel 
+dot = <x|y> = sum(x[i]*y[i], i=1..N);
+
+dot_serial.cpp -> serial version of dot_product
+dot_parallel_replicated.cpp -> parallel version with replicated arrays x y on all threads 
+dot_parallel_distributed.cpp -> parralel version with x y distributed in smaller chunks over all nodes;
+
+The arrays x, y are in the file "text.txt" which can be prepared with "utils.cpp"; 
+   changing the ISEED in "utils.cpp" resequences the random generator
+
+utils.cpp  -> prepare data files such as "data.data" containing the N, x y; copy "data.data" to "text.txt" if/as needed
+
+----------------
+io.cpp -> a testing copy ; ignore it
+
