@@ -28,7 +28,7 @@ int main(int argc, char * argv[]){
    left = N % N_threads; 
    if (thread < left) { //distribute the remianing elements uniformly
     N_local = N/N_threads + 1 ; 
-    i_start = (thread) * N_local; // i_start is a pointer to the original big array
+    i_start = (thread) * N_local; // i_start : the starting index of the array on this thread
    }else {
     N_local = N/N_threads ;
     i_start = left*(N_local+1)+ (thread-left) * N_local;
@@ -37,15 +37,12 @@ int main(int argc, char * argv[]){
    double *x = (double*)malloc(N*sizeof(double)); // all threads will have the entire replicated copies of x and y 
    double *y = (double*)malloc(N*sizeof(double)); // in MD -> replicated data parallelization strategy
 
-   read_file(nf, N, x, y, i_start, i_end ); // each cpu has a little chunck of data
+   read_file(nf, N, x, y, i_start, i_end ); // each cpu computes on a smaller chunck of the arrays
    MPI_Barrier(MPI_COMM_WORLD);
    MPI_Bcast(x,N, MPI_DOUBLE, ROOT_NODE, MPI_COMM_WORLD);
    MPI_Bcast(y,N, MPI_DOUBLE, ROOT_NODE, MPI_COMM_WORLD);
 
    test = dot_product_serial(N_local, (x+i_start), (y+i_start)); 
-//   note that (x+i_start) is the pointer notetion (of  x[i_start:i_start+N_local-1]  
-//   and it is the same as:
-//   test = dot_product_serial(N_local, &x[i_start], &y[i_start]);
 
    MPI_Reduce(&test, &sum, 1, MPI_DOUBLE, MPI_SUM, ROOT_NODE,MPI_COMM_WORLD);
    if (thread==ROOT_NODE){
@@ -70,7 +67,7 @@ void scan_file(const char *nf, int & N){
 }
 
 void read_file(const char *nf, int N, double * &x, double * &y, const int i_start, const int i_end ){
-// the data is so large that wont fit in one cpu onll it will be spit amoung cpus
+
  int size_buff=2048;
  int i,i00,j,send_to,rank;
  double r2[2];
